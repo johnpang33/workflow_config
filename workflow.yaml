@@ -3,17 +3,6 @@ Workflow:
     display_value: Infra set up
     dependency: null
     description: set up infra here
-    ref:
-      - value: example.com
-        display_value: Main Infra Docs
-    tool:
-      - value: this-ui.com
-        display_value: Infrastructure UI
-    poc:
-      - value: rit-poc@outlook.com
-        display_value: RIT Lead
-      - value: rit-poc2@outlook.com
-        display_value: RIT Lead2
     tasks:
       - name: INFRA_RIT
         display_value: Infra RIT
