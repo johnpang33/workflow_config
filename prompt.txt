@@ -1,0 +1,26 @@
+use python to convert the above yaml to excel with columns
+LOV_TYPE
+LOV_VALUE
+LOV_DISPLAY_VALUE
+LOV_PARENT_TYPE
+LOV_PARENT
+LOV_SEQUENCE
+
+
+
+where LOV TYPE is one of:
+PROCESS_GROUP
+PROCESS_TASK
+PROCESS_DEPENDENCY
+PROCESS_REF
+PROCESS_DESCRIPTION
+PROCESS_TOOL
+PROCESS_POC
+PROCESS_DAY
+where LOV SEQUENCE checks if a LOV PARENT has more than 1 of the same LOV TYPE then LOV SEQUENCE is the order of which LOV TYPES appear
+
+LOV_VALUE and LOV_DISPLAY VALUE is the same for dependency, day, description
+Modify the yaml if you need, let me know what are the modifications to the yaml
+
+
+where LOV_Sequence determines the sequence of every child LOV_Value if there is more than one LOV_Type in a parent

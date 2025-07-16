@@ -1,0 +1,89 @@
+Workflow:
+  - name: INFRA
+    display_value: Infra set up
+    dependency: null
+    description: set up infra here
+    ref:
+      - value: example.com
+        display_value: Main Infra Docs
+    tool:
+      - value: this-ui.com
+        display_value: Infrastructure UI
+    poc:
+      - value: rit-poc@outlook.com
+        display_value: RIT Lead
+      - value: rit-poc2@outlook.com
+        display_value: RIT Lead2
+    tasks:
+      - name: INFRA_RIT
+        display_value: Infra RIT
+        dependency: AI-ML
+        description: set up infra rit here
+        ref:
+          - value: rit-example.com
+            display_value: RIT Portal Link
+          - value: rit-example2.com
+            display_value: RIT Portal Link 2
+        tool:
+          - value: rit-ui.com
+            display_value: RIT Management Tool
+        poc:
+          - value: rit-infra-poc@outlook.com 
+            display_value: Infra RIT Contact 
+        day: 4
+      - name: INFRA_DEP
+        display_value: DEP
+        dependency: INFRA_RIT # Made dependency explicit
+        description: set up infra dep here
+        ref:
+          - value: dep-example.com
+            display_value: Deployment Guides
+        tool:
+          - value: dep-ui.com
+            display_value: DEP Dashboard
+        poc:
+          - value: dep@outlook.com
+            display_value: DEP email
+        day: 3
+  - name: APP
+    display_value: App set up
+    dependency: INFRA
+    description: set up App here
+    ref:
+      - value: app-example.com
+        display_value: Main APP Docs
+    tool:
+      - value: app-ui.com
+        display_value: app UI
+    poc:
+      - value: app@outlook.com
+        display_value: APP email
+    tasks:
+      - name: APP_RIT
+        display_value: APP RIT
+        dependency: INFRA
+        description: set up app rit here
+        ref:
+          - value: app-rit-example.com
+            display_value: App RIT Portal Link
+        tool:
+          - value: app-rit-ui.com
+            display_value: APP RIT Management Tool
+        poc:
+          - value: app@outlook.com
+            display_value: APP email
+        day: 3
+      - name: APP_DB
+        display_value: Database
+        dependency: APP # Example of adding dependency if needed
+        description: set up database here
+        ref:
+          - value: db-example.com
+            display_value: Database Guides
+        tool:
+          - value: app-ui.com
+            display_value: APP Dashboard
+        poc:
+          - value: app@outlook.com
+            display_value: APP email
+        day: 3
