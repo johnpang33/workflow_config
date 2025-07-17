@@ -2,23 +2,17 @@ Workflow:
 - name: INFRA
   display_value: Infra set up
   description: set up infra here
-  dependency: null
-  ref:
-  - value: example.com
-    display_value: Main Infra Docs
-  tool:
-  - value: this-ui.com
-    display_value: Infrastructure UI
-  poc:
-  - value: rit-poc@outlook.com
-    display_value: RIT Lead
-  - value: rit-poc2@outlook.com
-    display_value: RIT Lead2
+  dependency:
+  - null
+  ref: []
+  tool: []
+  poc: []
   tasks:
   - name: INFRA_RIT
     display_value: Infra RIT
     description: set up infra rit here
-    dependency: AI-ML
+    dependency:
+    - AIML
     ref:
     - value: rit-example.com
       display_value: RIT Portal Link
@@ -34,7 +28,9 @@ Workflow:
   - name: INFRA_DEP
     display_value: DEP
     description: set up infra dep here
-    dependency: INFRA_RIT
+    dependency:
+    - AIML
+    - ORR
     ref:
     - value: dep-example.com
       display_value: Deployment Guides
@@ -48,7 +44,9 @@ Workflow:
 - name: APP
   display_value: App set up
   description: set up App here
-  dependency: INFRA
+  dependency:
+  - INFRA
+  - ORR
   ref:
   - value: app-example.com
     display_value: Main APP Docs
@@ -62,7 +60,9 @@ Workflow:
   - name: APP_RIT
     display_value: APP RIT
     description: set up app rit here
-    dependency: INFRA
+    dependency:
+    - INFRA_RIT
+    - INFRA_DEP
     ref:
     - value: app-rit-example.com
       display_value: App RIT Portal Link
@@ -76,7 +76,8 @@ Workflow:
   - name: APP_DB
     display_value: Database
     description: set up database here
-    dependency: APP
+    dependency:
+    - APP_RIT
     ref:
     - value: db-example.com
       display_value: Database Guides

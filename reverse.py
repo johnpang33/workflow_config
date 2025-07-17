@@ -39,7 +39,7 @@ for _, row in df.iterrows():
             'name': lov_value,
             'display_value': lov_display,
             'description': '',  # to be filled later
-            'dependency': '',
+            'dependency': [],
             'ref': [],
             'tool': [],
             'poc': [],
@@ -50,7 +50,11 @@ for _, row in df.iterrows():
         group_dict[lov_parent]['description'] = lov_value
 
     elif lov_type == 'PROCESS_DEPENDENCY' and lov_parent_type == 'PROCESS_GROUP':
-        group_dict[lov_parent]['dependency'] = lov_value
+        if not group_dict[lov_parent].get('dependency') or isinstance(group_dict[lov_parent]['dependency'], str):
+            group_dict[lov_parent]['dependency'] = []
+        if lov_value != '':
+            group_dict[lov_parent]['dependency'].append(lov_value)
+        # group_dict[lov_parent]['dependency'] = lov_value
 
     elif lov_type == 'PROCESS_REF' and lov_parent_type == 'PROCESS_GROUP':
         group_dict[lov_parent]['ref'].append({'value': lov_value, 'display_value': lov_display})
@@ -69,7 +73,7 @@ for _, row in df.iterrows():
                     'name': lov_value,
                     'display_value': lov_display,
                     'description': '',
-                    'dependency': '',
+                    'dependency': [],
                     'ref': [],
                     'tool': [],
                     'poc': [],
@@ -85,7 +89,7 @@ for _, row in df.iterrows():
                     if lov_type == 'PROCESS_DESCRIPTION':
                         task['description'] = lov_value
                     elif lov_type == 'PROCESS_DEPENDENCY':
-                        task['dependency'] = lov_value
+                        task['dependency'].append(lov_value)
                     elif lov_type == 'PROCESS_REF':
                         task['ref'].append({'value': lov_value, 'display_value': lov_display})
                     elif lov_type == 'PROCESS_TOOL':

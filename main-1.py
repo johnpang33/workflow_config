@@ -9,7 +9,8 @@ logging.basicConfig(
     format="%(asctime)s - %(levelname)s - %(message)s"
 )
 
-with open("workflow.yaml") as f:
+with open("output.yaml") as f:
+# with open("workflow.yaml") as f:
     data = yaml.safe_load(f)
 
 rows = []
@@ -44,10 +45,15 @@ for i, group in enumerate(data['Workflow'], 1):
     else:
         logging.warning(f"Missing 'description' in group '{group_name}'")
 
-    if 'dependency' in group:
-        add_row("PROCESS_DEPENDENCY", group['dependency'], group['dependency'], "PROCESS_GROUP", group_name, 1)
-    else:
-        logging.warning(f"Missing 'dependency' in group '{group_name}'")
+    deps = group.get('dependency')
+
+    if deps is None:
+        deps = ['']  # Add an empty row
+    elif isinstance(deps, str):
+        deps = [deps]
+
+    for j, dep in enumerate(deps, 1):
+        add_row('PROCESS_DEPENDENCY', dep, dep, 'PROCESS_GROUP', group_name, j)
 
     for j, ref in enumerate(group.get('ref', []), 1):
         add_row("PROCESS_REF", ref['value'], ref['display_value'], "PROCESS_GROUP", group_name, j)
@@ -71,10 +77,15 @@ for i, group in enumerate(data['Workflow'], 1):
         if 'description' in task:
             add_row("PROCESS_DESCRIPTION", task['description'], task['description'], "PROCESS_TASK", task_name, 1)
 
-        if 'dependency' in task:
-            add_row("PROCESS_DEPENDENCY", task['dependency'], task['dependency'], "PROCESS_TASK", task_name, 1)
-        else:
-            logging.warning(f"Missing 'dependency' in task '{task_name}'")
+        deps = task.get('dependency')
+
+        if deps is None:
+            deps = ['']
+        elif isinstance(deps, str):
+            deps = [deps]
+
+        for j, dep in enumerate(deps, 1):
+            add_row('PROCESS_DEPENDENCY', dep, dep, 'PROCESS_TASK', task_name, j)
 
         for j, ref in enumerate(task.get('ref', []), 1):
             add_row("PROCESS_REF", ref['value'], ref['display_value'], "PROCESS_TASK", task_name, j)
@@ -97,6 +108,7 @@ df = pd.DataFrame(rows, columns=[
 ])
 
 # Save output if needed
-df.to_csv("output.csv", index=False)
+# df.to_csv("output.csv", index=False)
+df.to_csv("output1.csv", index=False)
 
 print(df)

@@ -6,7 +6,8 @@ Workflow:
     tasks:
       - name: INFRA_RIT
         display_value: Infra RIT
-        dependency: AI-ML
+        dependency: 
+          - AIML
         description: set up infra rit here
         ref:
           - value: rit-example.com
@@ -22,7 +23,9 @@ Workflow:
         day: 4
       - name: INFRA_DEP
         display_value: DEP
-        dependency: INFRA_RIT # Made dependency explicit
+        dependency: 
+          - AIML
+          - ORR
         description: set up infra dep here
         ref:
           - value: dep-example.com
@@ -36,7 +39,9 @@ Workflow:
         day: 3
   - name: APP
     display_value: App set up
-    dependency: INFRA
+    dependency: 
+      - INFRA
+      - ORR
     description: set up App here
     ref:
       - value: app-example.com
@@ -50,7 +55,9 @@ Workflow:
     tasks:
       - name: APP_RIT
         display_value: APP RIT
-        dependency: INFRA
+        dependency: 
+          - INFRA_RIT
+          - INFRA_DEP
         description: set up app rit here
         ref:
           - value: app-rit-example.com
@@ -64,7 +71,8 @@ Workflow:
         day: 3
       - name: APP_DB
         display_value: Database
-        dependency: APP # Example of adding dependency if needed
+        dependency: 
+          - APP_RIT
         description: set up database here
         ref:
           - value: db-example.com
